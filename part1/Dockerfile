@@ -7,6 +7,8 @@ ENV APP_PORT 3000
 
 ENV APP_HOME .
 ENV APP_STARTUP ""
+# JUST_RUN specifies whether node should be installed and git should be cloned
+ENV JUST_RUN N
 
 COPY ./docker-work /code
 
