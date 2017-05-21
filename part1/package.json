@@ -4,8 +4,8 @@
   "description": "Node.js application accepst GET requests and returns a count of the number of requests",
   "main": "requestCounter.js",
   "scripts": {
-     "start": "node requestCounter.js"
- ,    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node requestCounter.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "node",
@@ -14,5 +14,7 @@
   "author": "Lucas Jellema",
   "license": "ISC",
   "dependencies": {
+    "node-redis": "^0.1.7",
+    "redis": "^2.7.1"
   }
 }
