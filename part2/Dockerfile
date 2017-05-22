@@ -11,6 +11,11 @@ ENV VERSION "1.0"
 
 ENV JUST_RUN="N"
 
+# indicates whether dependencies are 
+# JAR = included in a single jar $ARTIFACT_ID-$VERSION-jar-with-dependencies.jar
+# LIBS = included in separated jar files in directory /target/dependency; the application jar is then called  $ARTIFACT_ID-$VERSION.jar
+ENV MAVEN_DEPENDENCIES="JAR"
+
 
 # installation of Apache Maven
 # Install Maven

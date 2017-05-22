@@ -24,4 +24,13 @@ fi
 
 #java -cp target/$ARTIFACT_ID-$VERSION.jar;target/dependency/* $APP_STARTUP
 
-java -cp target/$ARTIFACT_ID-$VERSION-jar-with-dependencies.jar $APP_STARTUP
+# JAR = included in a single jar $ARTIFACT_ID-$VERSION-jar-with-dependencies.jar
+# LIBS = included in separated jar files in directory /target/dependency; the application jar is then called  $ARTIFACT_ID-$VERSION.jar
+
+if [ "$MAVEN_DEPENDENCIES" = "JAR" ]; then
+  java -cp target/$ARTIFACT_ID-$VERSION-jar-with-dependencies.jar $APP_STARTUP
+else
+  if [ "$MAVEN_DEPENDENCIES" = "LIBS" ]; then
+    java -cp target/$ARTIFACT_ID-$VERSION.jar;target/dependency/* $APP_STARTUP
+  fi
+fi  

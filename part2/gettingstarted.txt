@@ -7,7 +7,7 @@ and https://codefresh.io/blog/java_docker_pipeline/
 docker build -t lucasjellema/java-app-runner .
 
 
-docker run -e "GIT_URL=https://github.com/lucasjellema/java-express-style-rest-api" -e "APP_PORT=8080" -p 8001:8765 -e "APP_HOME=." -e "ARTIFACT_ID=my-rest" -e "VERSION=1.0-SNAPSHOT"  -e "APP_STARTUP=nl.amis.rest.App2"   lucasjellema/java-app-runner
+docker run -e "GIT_URL=https://github.com/lucasjellema/java-express-style-rest-api" -e "APP_PORT=8080" -p 8001:8765 -e "APP_HOME=." -e "ARTIFACT_ID=my-rest" -e "VERSION=1.0-SNAPSHOT"  -e "APP_STARTUP=nl.amis.rest.App2" -e "MAVEN_DEPENDENCIES=LIBS"   lucasjellema/java-app-runner
 
 the first time - when the build must be performed:
 docker run -e "GIT_URL=https://github.com/dantheman213/java-hello-world-maven" -e "APP_PORT=8080" -p 8001:8765 -e "APP_HOME=." -e "ARTIFACT_ID=myapp" -e "VERSION=1.0"  -e "APP_STARTUP=com.myorganization.app.Main"   lucasjellema/java-app-runner
