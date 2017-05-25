@@ -1,7 +1,9 @@
 #!/bin/bash
 
-echo switching node to version $NODE_VERSION
-n $NODE_VERSION --quiet
+if [ "$JUST_RUN" = "N" ]; then
+  echo switching node to version $NODE_VERSION
+  n $NODE_VERSION --quiet
+fi
 
 echo node version: `node --version`
 

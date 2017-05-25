@@ -18,5 +18,6 @@ WORKDIR /code
 RUN chmod +x /code/bootstrap.sh
 
 RUN npm install -g n --silent
+RUN n stable
 
 ENTRYPOINT ["/code/bootstrap.sh"]

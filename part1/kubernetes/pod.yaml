@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: request-counter-ms
+  labels:
+    app: request-counter-ms
+spec:
+  nodeName: minikube
+  containers:
+  - name: request-counter
+    # get latest version of image
+    #  -e "GIT_URL=https://github.com/lucasjellema/microservices-choreography-kubernetes-workshop-june2017" -e "APP_PORT=8080" -p 8015:8080 
+    #-e "APP_HOME=part1"  -e "APP_STARTUP=requestCounter-3.js" -e "REDIS_HOST:127.0.0.1" -e "REDIS_PORT:6379"   lucasjellema/node-app-runner
+    image: lucasjellema/node-app-runner
+    env:
+    - name: GIT_URL
+      value: "https://github.com/lucasjellema/microservices-choreography-kubernetes-workshop-june2017"
+    - name: APP_PORT
+      value: "8091"
+    - name: APP_HOME
+      value: "part1"
+    - name: APP_STARTUP
+      value: "requestCounter-2.js"
+    ports:
+    # containerPort is the port exposed by the container (where nodejs is listening for http requests)
+    - containerPort: 8091

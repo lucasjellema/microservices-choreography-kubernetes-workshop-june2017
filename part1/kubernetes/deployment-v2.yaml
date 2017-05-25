@@ -1,0 +1,33 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: request-counter-ms-deployment
+spec:
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      #  the name for the pods is not included in the meta data as a unique name is
+      #  generated from the deployment name
+      labels:
+        app: request-counter-ms
+    spec:
+      containers:
+      - name: request-counter-ms
+        # get latest version of image
+        image: lucasjellema/node-app-runner
+        env:
+          - name: GIT_URL
+            value: "https://github.com/lucasjellema/microservices-choreography-kubernetes-workshop-june2017"
+          - name: APP_PORT
+            value: "8091"
+          - name: APP_HOME
+            value: "part1"
+          - name: APP_STARTUP
+            value: "requestCounter-4.js"
+          - name: REDIS_HOST
+            value: "redis-cache"
+          - name: REDIS_PORT
+            value: "6379"
+        ports:
+        # containerPort is the port exposed by the container (where nodejs is listening for http requests)
+          - containerPort: 8091

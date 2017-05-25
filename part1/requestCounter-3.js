@@ -10,20 +10,22 @@ var redisClient = redis.createClient({ "host": redisHost, "port": redisPort });
 
 var PORT = process.env.APP_PORT || 3000;
 
+var redisKeyRequestCounter = "requestCounter";
+
 var server = http.createServer(function handleRequest(req, res) {
     var requestCounter = 0;
 
-    redisClient.get("requestCounter", function (err, reply) {
+    redisClient.get(redisKeyRequestCounter, function (err, reply) {
         if (err) {
             res.write('Request Count (Version 3): ERROR ' + err);
             res.end();
         } else {
             if (!reply || reply == null) {
                 console.log("no value found yet");
-                redisClient.set("requestCounter", requestCounter);
+                redisClient.set(redisKeyRequestCounter, requestCounter);
             } else {
                 requestCounter = Number(reply) + 1;
-                redisClient.set("requestCounter", requestCounter);
+                redisClient.set(redisKeyRequestCounter, requestCounter);
             }
             res.write('Request Count (Version 3): ' + requestCounter);
             res.end();
