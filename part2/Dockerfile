@@ -37,14 +37,15 @@ ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 #RUN mvn -version
 
 # install GIT client
-#RUN apt-get update \
-#  &&  apt --assume-yes  install git 
+# adds a layer of 700 MB!
 RUN yum -y install git
 RUN git --version
 
+RUN yum -y install tar
+
 #install Maven 3
 RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
-    && curl -O http://apache.mirror1.spango.com/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz
+    && curl -O http://apache.mirror1.spango.com/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz 
 RUN tar -xzvf apache-maven-$MAVEN_VERSION-bin.tar.gz -C /usr/share/maven --strip-components=1 \
     && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
