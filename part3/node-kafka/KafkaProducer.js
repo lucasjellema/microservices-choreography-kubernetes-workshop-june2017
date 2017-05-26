@@ -30,6 +30,7 @@ client.zk.client.getChildren("/brokers/topics", (err, children, stats) => {
 producer.on('ready', function () {
     console.log("producer  is ready");
 
+client.zk.client.getChildren("/brokers/topics", (err, children, stats) => {
     children.forEach(child => {
     KeyedMessage = kafka.KeyedMessage
     km = new KeyedMessage('key', 'message'),
@@ -47,4 +48,5 @@ producer.on('ready', function () {
         console.error("Error " + err)
     })
     })//for each child
+})//getChildren
 })
