@@ -7,7 +7,7 @@ var KAFKA_ZOOKEEPER_HOST = process.env.KAFKA_ZOOKEEPER_HOST || '192.168.99.100';
 var KAFKA_ZOOKEEPER_PORT = process.env.KAFKA_ZOOKEEPER_PORT || '30686';
 
 var KAFKA_TOPIC = process.env.KAFKA_TOPIC || 'event-topic';
-var version = 1.7;
+var version = 1.8;
 console.log("KafkaProducer (version " + version + ") reporting for duty");
 console.log("KAFKA_ZOOKEEPER_HOST: " + KAFKA_ZOOKEEPER_HOST);
 console.log("KAFKA_ZOOKEEPER_PORT: " + KAFKA_ZOOKEEPER_PORT);
@@ -41,8 +41,8 @@ producer.on('ready', function () {
         KeyedMessage = kafka.KeyedMessage
         km = new KeyedMessage('key', 'message'),
             payloads = [
-                { topic: topic, messages: 'hi from Windows Host', partitions: 0 },
-                { topic: topic, messages: ['hi from node producer', 'one other message', km], partitions: 0 },
+                { "topic": topic, "messages": 'hi from Windows Host', partitions: 0 },
+                { "topic": topic, "messages": ['hi from node producer', 'one other message', km], partitions: 0 },
             ];
         console.log('send to topic ' + topic);
         producer.send(payloads, function (err, data) {
@@ -56,3 +56,18 @@ producer.on('ready', function () {
     })//for each topic
 
 })
+
+function sendUpdateToTestTopic() {
+    var topic = "test-topic";
+    console.log('Timeout: send to topic ' + topic);
+    producer.send( [{ "topic": topic, "messages": ['Here is another message!'] }], function (err, data) {
+        console.log("send is complete " + data);
+        console.log("error from sending " + err);
+    });
+
+    producer.on('error', function (err) {
+        console.error("Error " + err)
+    })
+}
+
+setTimeout(sendUpdateToTestTopic, 3000)
