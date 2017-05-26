@@ -20,24 +20,25 @@ var eventBusTopic = KAFKA_TOPIC;
 var client = new kafka.Client(kafkaConnectDescriptor)
 var producer = new Producer(client);
 
+var topics = [];
+
 console.log("Try to retrieve list of topics:");
 client.zk.client.getChildren("/brokers/topics", (err, children, stats) => {
-  children.forEach(child => console.log(child));
+    children.forEach(child => {console.log(child); topics.push(child)});
 });
 
 producer.on('ready', function () {
     console.log("producer  is ready");
 
-    KeyedMessage = kafka.KeyedMessage,
-        producer = new Producer(client),
-        km = new KeyedMessage('key', 'message'),
+    children.forEach(child => {
+    KeyedMessage = kafka.KeyedMessage
+    km = new KeyedMessage('key', 'message'),
         payloads = [
-            { topic: eventBusTopic, messages: 'hi from Windows Host', partitions: 1 },
-            { topic: eventBusTopic, messages: ['hi from node producer', 'one other message', km], partitions: 1 },
+            { topic: child, messages: 'hi from Windows Host', partitions: 0 },
+            { topic: child, messages: ['hi from node producer', 'one other message', km], partitions: 0 },
         ];
 
     producer.send(payloads, function (err, data) {
-
         console.log("send is complete " + data);
         console.log("error " + err);
     });
@@ -45,4 +46,5 @@ producer.on('ready', function () {
     producer.on('error', function (err) {
         console.error("Error " + err)
     })
+    })//for each child
 })
