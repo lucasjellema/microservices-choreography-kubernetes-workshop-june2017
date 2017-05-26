@@ -6,6 +6,7 @@ var KAFKA_ZOOKEEPER_PORT = process.env.KAFKA_ZOOKEEPER_PORT;
 
 var KAFKA_TOPIC = process.env.KAFKA_TOPIC;
 
+console.log("KafkaConsumer reporting for duty");
 
 var kafkaConnectDescriptor = KAFKA_ZOOKEEPER_HOST + ":" + KAFKA_ZOOKEEPER_PORT;
 var eventBusTopic = KAFKA_TOPIC;
