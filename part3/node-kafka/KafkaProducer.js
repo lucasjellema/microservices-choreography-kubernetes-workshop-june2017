@@ -7,8 +7,8 @@ var KAFKA_ZOOKEEPER_HOST = process.env.KAFKA_ZOOKEEPER_HOST || '192.168.99.100';
 var KAFKA_ZOOKEEPER_PORT = process.env.KAFKA_ZOOKEEPER_PORT || '30686';
 
 var KAFKA_TOPIC = process.env.KAFKA_TOPIC || 'event-topic';
-var version = 1.4;
-console.log("KafkaProducer (version "+version+") reporting for duty");
+var version = 1.5;
+console.log("KafkaProducer (version " + version + ") reporting for duty");
 console.log("KAFKA_ZOOKEEPER_HOST: " + KAFKA_ZOOKEEPER_HOST);
 console.log("KAFKA_ZOOKEEPER_PORT: " + KAFKA_ZOOKEEPER_PORT);
 console.log("KAFKA_TOPIC: " + KAFKA_TOPIC);
@@ -31,17 +31,14 @@ producer.on('ready', function () {
             { topic: eventBusTopic, messages: 'hi from Windows Host', partitions: 1 },
             { topic: eventBusTopic, messages: ['hi from node producer', 'one other message', km], partitions: 1 },
         ];
-    producer.on('ready', function () {
-        console.log("client is ready");
 
-        producer.send(payloads, function (err, data) {
+    producer.send(payloads, function (err, data) {
 
-            console.log("send is complete " + data);
-            console.log("error " + err);
-        });
+        console.log("send is complete " + data);
+        console.log("error " + err);
     });
 
-    producer.on('error', function (err) { 
-        console.error("Error "+err)
+    producer.on('error', function (err) {
+        console.error("Error " + err)
     })
 })
