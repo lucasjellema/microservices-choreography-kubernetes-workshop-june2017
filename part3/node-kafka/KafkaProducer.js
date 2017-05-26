@@ -7,7 +7,7 @@ var KAFKA_ZOOKEEPER_HOST = process.env.KAFKA_ZOOKEEPER_HOST || '192.168.99.100';
 var KAFKA_ZOOKEEPER_PORT = process.env.KAFKA_ZOOKEEPER_PORT || '30686';
 
 var KAFKA_TOPIC = process.env.KAFKA_TOPIC || 'event-topic';
-var version = 1.5;
+var version = 1.6;
 console.log("KafkaProducer (version " + version + ") reporting for duty");
 console.log("KAFKA_ZOOKEEPER_HOST: " + KAFKA_ZOOKEEPER_HOST);
 console.log("KAFKA_ZOOKEEPER_PORT: " + KAFKA_ZOOKEEPER_PORT);
@@ -20,6 +20,10 @@ var eventBusTopic = KAFKA_TOPIC;
 var client = new kafka.Client(kafkaConnectDescriptor)
 var producer = new Producer(client);
 
+console.log("Try to retrieve list of topics:");
+client.zk.client.getChildren("/brokers/topics", (err, children, stats) => {
+  children.forEach(child => console.log(child));
+});
 
 producer.on('ready', function () {
     console.log("producer  is ready");
