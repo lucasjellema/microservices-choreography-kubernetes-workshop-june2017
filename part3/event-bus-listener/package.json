@@ -1,0 +1,24 @@
+{
+  "name": "event-bus-listener",
+  "version": "0.0.2",
+  "description": "Node.js application that accepts GET requests to return the most recent events captures from the event-bus",
+  "main": "EventBusListener.js",
+  "scripts": {
+     "start": "node EventBusListener.js"
+ ,    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "kafka",
+    "node",
+    "js",
+    "consume"
+  ],
+  "author": "Lucas Jellema",
+  "license": "ISC",
+  "dependencies": {
+    "kafka-node": "^1.3.4",
+    "body-parser": "^1.16.1",
+    "express": "^4.13.4",
+    "request": "^2.81.0"
+  }
+}
