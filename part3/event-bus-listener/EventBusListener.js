@@ -5,6 +5,7 @@ var http = require('http'),
   bodyParser = require('body-parser');
 
 var kafkaHost = process.env.KAFKA_HOST || "ubuntu";
+var zookeeperPort = process.env.ZOOKEEPER_PORT || 2181;
 //var kafkaHostIP = "192.168.188.101";
 var Consumer = kafka.Consumer
 var Producer = kafka.Producer
@@ -24,7 +25,7 @@ console.log("Running " + APP_NAME + "version " + APP_VERSION);
 var app = express();
 var server = http.createServer(app);
 server.listen(PORT, function () {
-  console.log('Microservice' + APP_NAME + ' running, Express is listening... at ' + PORT + " for /ping, /about and /tweetBoard API calls");
+  console.log('Microservice' + APP_NAME + ' running, Express is listening... at ' + PORT + " for /ping, /about and /event-bus calls");
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -55,32 +56,11 @@ app.get('/event-bus', function (req, res) {
 
 var events = [];
 
-function initializeKafkaProducer(attempt) {
-  try {
-    console.log("Try to initialize Kafka Client and Producer, attempt " + attempt);
-    var client2 = new kafka.Client(kafkaHost + ":2181/")
-    console.log("created client2");
-    producer = new Producer(client);
-    console.log("submitted async producer creation request");
-    producer.on('ready', function () {
-      console.log("Producer is ready in " + APP_NAME);
-    });
-    producer.on('error', function (err) {
-      console.log("failed to create the client or the producer " + JSON.stringify(err));
-    })
-  }
-  catch (e) {
-    console.log("Exception in initializeKafkaConsumer" + e);
-    console.log("Exception in initializeKafkaConsumer" + JSON.stringify(e));
-    console.log("Try again in 5 seconds");
-    setTimeout(initializeKafkaProducer, 5000, ++attempt);
-  }
-}//initializeKafkaProducer
 
 function initializeKafkaConsumer(attempt) {
   try {
     console.log("Try to initialize Kafka Client and Consumer, attempt " + attempt);
-    client = new kafka.Client(kafkaHost + ":2181/")
+    var client = new kafka.Client(kafkaHost + ":"+zookeeperPort+"/")
     console.log("created client for " + kafkaHost);
     consumer = new Consumer(
       client,
