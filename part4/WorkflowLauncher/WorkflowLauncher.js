@@ -26,24 +26,26 @@ function handleWorkflowEvent(eventMessage) {
     console.log("A new tweet event has reached us. Time to act and publish a corresponding workflow event");
     message.payload = event.tweet;
     message.workflowConversationIdentifier = "OracleCodeTweetProcessor" + new Date().getTime();
-
-
     eventBusPublisher.publishEvent(message.workflowConversationIdentifier, message, workflowEventsTopic);
-        localLoggerAPI.log("Initialized new workflow OracleCodeTweetProcessor triggered by NewTweetEvent; stored workflowevent plus routing slip in cache under key " + message.workflowConversationIdentifier +" - (workflowConversationIdentifier:" 
-        + message.workflowConversationIdentifier + ")"
-          , APP_NAME, "info");
-        // PUT Workflow Event in Cache under workflow event identifier
-        localCacheAPI.putInCache(message.workflowConversationIdentifier, message,
-          function (result) {
-            console.log("store workflowevent plus routing slip in cache under key " + message.workflowConversationIdentifier + ": " + JSON.stringify(result));
-          });
+
+    localLoggerAPI.log("Initialized new workflow OracleCodeTweetProcessor triggered by NewTweetEvent; stored workflowevent plus routing slip in cache under key " + message.workflowConversationIdentifier + " - (workflowConversationIdentifier:"
+      + message.workflowConversationIdentifier + ")"
+      , APP_NAME, "info");
+
+    localLoggerAPI.log("Initialized new workflow  - (workflowConversationIdentifier:" + event.workflowConversationIdentifier + ")"
+        , APP_NAME, "info");
+
+    // PUT Workflow Event in Cache under workflow event identifier
+    localCacheAPI.putInCache(message.workflowConversationIdentifier, message,
+      function (result) {
+        console.log("store workflowevent plus routing slip in cache under key " + message.workflowConversationIdentifier + ": " + JSON.stringify(result));
+      });
   }//if 
 
 }// handleWorkflowEvent
 
 
 message =
-
   {
     "workflowType": "oracle-code-tweet-processor"
     , "workflowConversationIdentifier": "oracle-code-tweet-processor" + new Date().getTime()
@@ -73,7 +75,7 @@ message =
     }
     ]
     , "audit": [
-      { "when": new Date().getTime(), "who": "WorkflowLauncher", "what": "creation", "comment": "initial creation as test case" }
+      { "when": new Date().getTime(), "who": "WorkflowLauncher", "what": "creation", "comment": "initial creation of workflow" }
     ]
     , "payload": {
       "text": "Fake 2 #oraclecode Tweet @StringSection"
