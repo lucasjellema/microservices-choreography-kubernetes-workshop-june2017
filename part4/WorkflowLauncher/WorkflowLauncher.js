@@ -1,11 +1,5 @@
-var kafka = require('kafka-node')
-var Producer = kafka.Producer
-var Consumer = kafka.Consumer
-var kafkaHost = "ubuntu";
-var kafkaHostIP = "192.168.188.101";
-var client = new kafka.Client(kafkaHost + ":2181/")
-//var localCacheAPI = require("./local-cache-api.js");
-//var localLoggerAPI = require("./local-logger-api.js");
+var localCacheAPI = require("./local-cache-api.js");
+var localLoggerAPI = require("./local-logger-api.js");
 var eventBusPublisher = require("./EventPublisher.js");
 var eventBusConsumer = require("./EventConsumer.js");
 
@@ -35,20 +29,17 @@ function handleWorkflowEvent(eventMessage) {
 
 
     eventBusPublisher.publishEvent(message.workflowConversationIdentifier, message, workflowEventsTopic);
-    /*
-        localLoggerAPI.log("Initialized new workflow OracleCodeTweetProcessor triggered by NewTweetEvent; stored workflowevent plus routing slip in cache under key " + message.workflowConversationIdentifier +" - (workflowConversationIdentifier:" + event.workflowConversationIdentifier + ")"
+        localLoggerAPI.log("Initialized new workflow OracleCodeTweetProcessor triggered by NewTweetEvent; stored workflowevent plus routing slip in cache under key " + message.workflowConversationIdentifier +" - (workflowConversationIdentifier:" 
+        + message.workflowConversationIdentifier + ")"
           , APP_NAME, "info");
         // PUT Workflow Event in Cache under workflow event identifier
         localCacheAPI.putInCache(message.workflowConversationIdentifier, message,
           function (result) {
             console.log("store workflowevent plus routing slip in cache under key " + message.workflowConversationIdentifier + ": " + JSON.stringify(result));
           });
-          */
   }//if 
 
 }// handleWorkflowEvent
-
-
 
 
 message =

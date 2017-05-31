@@ -25,6 +25,10 @@ spec:
       value: "2181"
     - name: KAFKA_TOPIC
       value: "workflowEvents"
+    - name: REDIS_HOST
+      value: "redis-cache"
+    - name: REDIS_PORT
+      value: "6379"
     ports:
     lifecycle:
       postStart:

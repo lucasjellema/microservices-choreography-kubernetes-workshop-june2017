@@ -2,76 +2,44 @@ var request = require('request')
     ;
 
 
-// Create a client that will "talk" to CCS
-//var Client = require("node-rest-client").Client;
-
-//var client = new Client();
-
+//this module talks to a locally running Redis Cache
 
 var localCacheAPI = module.exports;
 var moduleName = "accs.localCacheAPI";
 var moduleVersion = "0.8.7";
-var cacheAPIURL = "https://artist-enricher-api-partnercloud17.apaas.us6.oraclecloud.com/cache-api";
+var Redis = require("redis");
 
+var redisHost = process.env.REDIS_HOST || "192.168.99.100";
+var redisPort = process.env.REDIS_PORT || 32657;
+
+var redisClient = Redis.createClient({ "host": redisHost, "port": redisPort });
 
 localCacheAPI.getFromCache = function (key, callback) {
-    console.log("get document from cache api with key " + key);
-    var route_options = {};
-
-    // Issue the GET -- the callback will return the response to the user
-    route_options.method = "GET";
-    route_options.uri = cacheAPIURL.concat('/').concat(key);
-    console.log("Target URL from CacheAPI" + route_options.uri);
-
-
-    // Issue the GET -- our callback function will return the response
-    // to the user
-    request(route_options, function (error, rawResponse, body) {
-        if (error) {
-            console.log(JSON.stringify(error));
-        } else {
-            callback(JSON.parse(body).value);
-        }//else
-    });//request
+    try {
+        console.log("get document from cache api with key " + key);
+        redisClient.get(key, function (err, reply) {
+            if (err) {
+                console.error('ERROR in getting document from cache ' + err);
+                callback(null);
+            } else {
+                callback(JSON.parse(reply));
+            }//else
+        });//get
+    } catch (e) {
+        console.error('ERROR in accessing redis ' + e);
+        callback(null);
+    }
 }//getFromCache
 
 localCacheAPI.putInCache = function (key, value, callback) {
-    console.log("putInCache Callback = " + callback);
-    // Build the args for the request
-    var args = {
-        data: JSON.stringify(value),
-        headers: { "Content-Type": "application/json" }
-    };
-    var route_options = {};
-
-    // Issue the PUT -- the callback will return the response to the user
-    route_options.method = "PUT";
-
-    route_options.uri = cacheAPIURL.concat('/').concat(key);
-    console.log("Target URL " + route_options.uri);
-
-    route_options.body = args.data;
-    route_options.headers = args.headers;
-
-    console.log("route_options:" + JSON.stringify(route_options));
-
-    request(route_options, function (error, rawResponse, body) {
-        if (error) {
-            console.log(JSON.stringify(error));
-            if (callback) { callback("error in call to cache " + JSON.stringify(error)) }
-        } else {
-            console.log(rawResponse.statusCode);
-            console.log("BODY:" + JSON.stringify(body));
-            console.log("XXXXXXXXXXXXXXXXXXXX  BODY2:" + JSON.stringify(body));
-            // Proper response is 204, no content.
-            var responseBody = {};
-            responseBody['status'] = 'PUT returned '.concat(rawResponse.statusCode.toString());
-
-            if (callback) { callback(responseBody) }
-        }//else
-    });//request
-
+    try {
+        console.log("putInCache Callback = " + callback);
+        redisClient.set(key, JSON.stringify(value));
+        callback("Put in cache");
+    } catch (e) {
+        callback("Failed to put in cache " + JSON.stringify(e));
+    }
 }//putInCache
 
 
-console.log("Local Cache API (version " + moduleVersion + ") initialized running against CACHE Service URL " + cacheAPIURL);
+console.log("Local Cache API (version " + moduleVersion + ") initialized running against Redis instance at "+redisHost+":"+redisPort);
