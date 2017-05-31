@@ -1,0 +1,23 @@
+{
+  "name": "workflow-launcher",
+  "version": "0.0.2",
+  "description": "Microservice - Node.js application that listens to Kafka Topic for workflow triggering events - such as NewTweetEvent - then create a workflow instance with routing slip, put it in the cache and publish an event to the WorkflowEvents topic",
+  "main": "WorkflowLauncher.js",
+  "scripts": {
+     "start": "node WorkflowLauncher.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "kafka",
+    "node",
+    "js",
+    "produce",
+    "consume"
+  ],
+  "author": "Lucas Jellema",
+  "license": "ISC",
+  "dependencies": {
+    "kafka-node": "^1.3.4",
+    "request": "^2.81.0"
+  }
+}
