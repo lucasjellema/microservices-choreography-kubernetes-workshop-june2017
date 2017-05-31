@@ -9,7 +9,7 @@ var eventBusConsumer = require("./EventConsumer.js");
 
 var workflowEventsTopic = "workflowEvents";
 var PORT = process.env.APP_PORT || 8098;
-var APP_VERSION = "0.25"
+var APP_VERSION = "0.26"
 var APP_NAME = "TweetEnricher"
 
 var TweetEnricherActionType = "EnrichTweet";
@@ -60,6 +60,7 @@ app.post('/tweet', function (req, res) {
 function enrich(tweet) {
   console.log("enrich tweet " + JSON.stringify(tweet));
   tweet.enrichment = "Lots of Money";
+  tweet.extraEnrichment = "Even more loads of money, gold, diamonds and even some spiritual enrichment";
   return tweet;
 }
 
