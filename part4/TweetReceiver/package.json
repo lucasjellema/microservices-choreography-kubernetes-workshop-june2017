@@ -1,0 +1,24 @@
+{
+  "name": "tweet-receiver",
+  "version": "0.0.2",
+  "description": "Node.js application that accepts GET requests with Tweet and publishes a NewTweetEvent message to the event-bus",
+  "main": "TweetReceiver.js",
+  "scripts": {
+     "start": "node TweetReceiver.js"
+ ,    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "kafka",
+    "node",
+    "js",
+    "produce"
+  ],
+  "author": "Lucas Jellema",
+  "license": "ISC",
+  "dependencies": {
+    "kafka-node": "^1.3.4",
+    "body-parser": "^1.16.1",
+    "express": "^4.13.4",
+    "request": "^2.81.0"
+  }
+}
