@@ -1,8 +1,6 @@
 var request = require('request')
     ;
 
-// not available locally, only on ACCS 
-var settings = require("./proxy-settings.js");
 
 // Create a client that will "talk" to CCS
 //var Client = require("node-rest-client").Client;
@@ -12,6 +10,7 @@ var settings = require("./proxy-settings.js");
 
 var localCacheAPI = module.exports;
 var moduleName = "accs.localCacheAPI";
+var moduleVersion = "0.8.7";
 var cacheAPIURL = "https://artist-enricher-api-partnercloud17.apaas.us6.oraclecloud.com/cache-api";
 
 
@@ -75,4 +74,4 @@ localCacheAPI.putInCache = function (key, value, callback) {
 }//putInCache
 
 
-console.log("Local Cache API (version " + settings.APP_VERSION + ") initialized running against CACHE Service URL " + cacheAPIURL);
+console.log("Local Cache API (version " + moduleVersion + ") initialized running against CACHE Service URL " + cacheAPIURL);

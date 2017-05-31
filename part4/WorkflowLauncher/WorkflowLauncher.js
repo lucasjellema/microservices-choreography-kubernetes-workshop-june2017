@@ -4,8 +4,8 @@ var Consumer = kafka.Consumer
 var kafkaHost = "ubuntu";
 var kafkaHostIP = "192.168.188.101";
 var client = new kafka.Client(kafkaHost + ":2181/")
-var localCacheAPI = require("./local-cache-api.js");
-var localLoggerAPI = require("./local-logger-api.js");
+//var localCacheAPI = require("./local-cache-api.js");
+//var localLoggerAPI = require("./local-logger-api.js");
 var eventBusPublisher = require("./EventPublisher.js");
 var eventBusConsumer = require("./EventConsumer.js");
 

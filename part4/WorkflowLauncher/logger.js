@@ -1,12 +1,12 @@
 var request = require('request')
     ;
-var settings = require("./proxy-settings.js");
 
 var logger = module.exports;
 
 var loggerRESTAPIURL = "http://129.144.151.143/SoaringTheWorldAtRestService/resources/logger/log";
 var apiURL = "/logger-api";
 var eventhubAPI = require("./eventhub-api.js");
+var moduleVersion = "0.1.3";
 
 logger.DEBUG = "debug";
 logger.INFO = "info";
@@ -97,4 +97,4 @@ logger.registerListeners =
         });//post
     }//registerListeners
 
-console.log("Logger API (version " + settings.APP_VERSION + ") initialized at " + apiURL + " running against Logger Service URL " + loggerRESTAPIURL);
+console.log("Logger API (version " + moduleVersion + ") initialized at " + apiURL + " running against Logger Service URL " + loggerRESTAPIURL);
