@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cache-inspector-ms
+  labels:
+    app: cache-inspector-ms
+spec:
+  nodeName: minikube
+  containers:
+  - name: cache-inspector
+    # get latest version of image
+    image: lucasjellema/node-app-runner
+    env:
+    - name: GIT_URL
+      value: "https://github.com/lucasjellema/microservices-choreography-kubernetes-workshop-june2017"
+    - name: APP_PORT
+      value: "8109"
+    - name: APP_HOME
+      value: "part4/CacheInspector"
+    - name: APP_STARTUP
+      value: "CacheInspector.js"
+    - name: REDIS_HOST
+      value: "redis-cache"
+    - name: REDIS_PORT
+      value: "6379"
+    ports:
+    # containerPort is the port exposed by the container (where nodejs express api is listening)
+    - containerPort: 8109

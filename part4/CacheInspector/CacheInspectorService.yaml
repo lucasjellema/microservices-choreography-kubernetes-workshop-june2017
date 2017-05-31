@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: cacheinspectorservice
+  name: cacheinspectorservice
+spec:
+  ports:
+    # The port that this service should serve on.
+    - port: 8109
+      # port listened at inside the container
+      targetPort: 8109
+  # Label keys and values that must match in order to receive traffic for this service.
+  selector:
+    app: cache-inspector-ms
+  type: NodePort
