@@ -1,0 +1,26 @@
+{
+  "name": "tweet-validator",
+  "version": "0.0.2",
+  "description": "Node.js application that accepts POST requests with a Tweet message as JSON payload in the BODY. The Tweet is validated and either confirmed or rejected. the application also listens to Kafka messages on topic workflowEvents",
+  "main": "TweetValidator.js",
+  "scripts": {
+     "start": "node TweetValidator.js"
+ ,    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "kafka",
+    "node",
+    "js",
+    "produce",
+    "consume"
+  ],
+  "author": "Lucas Jellema",
+  "license": "ISC",
+  "dependencies": {
+    "kafka-node": "^1.3.4",
+    "body-parser": "^1.16.1",
+    "express": "^4.13.4",
+    "request": "^2.81.0",
+    "redis": "^2.7.1"
+  }
+}
