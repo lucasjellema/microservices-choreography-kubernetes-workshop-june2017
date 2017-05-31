@@ -8,8 +8,8 @@ var eventBusPublisher = require("./EventPublisher.js");
 var eventBusConsumer = require("./EventConsumer.js");
 
 var workflowEventsTopic = "workflowEvents";
-var PORT = process.env.PORT || 8098;
-var APP_VERSION = "0.24"
+var PORT = process.env.APP_PORT || 8098;
+var APP_VERSION = "0.25"
 var APP_NAME = "TweetEnricher"
 
 var TweetEnricherActionType = "EnrichTweet";
