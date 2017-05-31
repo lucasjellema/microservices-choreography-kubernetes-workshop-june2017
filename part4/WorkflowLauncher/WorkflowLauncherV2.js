@@ -32,7 +32,7 @@ function handleWorkflowEvent(eventMessage) {
             + message.workflowConversationIdentifier + ")"
             , APP_NAME, "info");
 
-        localLoggerAPI.log("Initialized new workflow  - (workflowConversationIdentifier:" + event.workflowConversationIdentifier + ")"
+        localLoggerAPI.log("Initialized new workflow  - (workflowConversationIdentifier:" + message.workflowConversationIdentifier  + ")"
             , APP_NAME, "info");
 
         // PUT Workflow Event in Cache under workflow event identifier
