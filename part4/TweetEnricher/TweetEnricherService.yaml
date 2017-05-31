@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: tweetenricherservice
+  name: tweetenricherservice
+spec:
+  ports:
+    # The port that this service should serve on.
+    - port: 8103
+      # port listened at inside the container
+      targetPort: 8103
+  # Label keys and values that must match in order to receive traffic for this service.
+  selector:
+    app: tweet-enricher-ms
+  type: NodePort

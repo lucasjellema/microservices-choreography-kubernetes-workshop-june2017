@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tweet-enricher-ms
+  labels:
+    app: tweet-enricher-ms
+spec:
+  nodeName: minikube
+  containers:
+  - name: tweet-enricher
+    # get latest version of image
+    image: lucasjellema/node-app-runner
+    env:
+    - name: GIT_URL
+      value: "https://github.com/lucasjellema/microservices-choreography-kubernetes-workshop-june2017"
+    - name: APP_PORT
+      value: "8103"
+    - name: APP_HOME
+      value: "part4/TweetEnricher"
+    - name: APP_STARTUP
+      value: "TweetEnricher.js"
+    - name: KAFKA_HOST
+      value: "ubuntu"
+    - name: ZOOKEEPER_PORT
+      value: "2181"
+    - name: KAFKA_TOPIC
+      value: "workflowEvents"
+    - name: REDIS_HOST
+      value: "redis-cache"
+    - name: REDIS_PORT
+      value: "6379"
+    ports:
+    # containerPort is the port exposed by the container (where nodejs express api is listening)
+    - containerPort: 8103
+    lifecycle:
+      postStart:
+        exec:
+          # add advertised host (ubuntu) of VM running Kafka to hosts file - with that VMs network interface's IP address
+          command: ["sh","-c","echo 192.168.188.101 ubuntu > /etc/hosts"]
