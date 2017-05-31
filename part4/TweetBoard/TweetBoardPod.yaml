@@ -10,6 +10,7 @@ spec:
   - name: tweet-board
     # get latest version of image
     image: lucasjellema/node-app-runner
+    imagePullPolicy: IfNotPresent
     env:
     - name: GIT_URL
       value: "https://github.com/lucasjellema/microservices-choreography-kubernetes-workshop-june2017"

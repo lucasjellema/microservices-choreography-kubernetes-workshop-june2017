@@ -12,6 +12,7 @@ spec:
     #  -e "GIT_URL=https://github.com/lucasjellema/microservices-choreography-kubernetes-workshop-june2017" -e "APP_PORT=8080" -p 8015:8080 
     #-e "APP_HOME=part1"  -e "APP_STARTUP=requestCounter-3.js" -e "REDIS_HOST:127.0.0.1" -e "REDIS_PORT:6379"   lucasjellema/node-app-runner
     image: lucasjellema/node-app-runner
+    imagePullPolicy: IfNotPresent
     env:
     - name: GIT_URL
       value: "https://github.com/lucasjellema/microservices-choreography-kubernetes-workshop-june2017"
