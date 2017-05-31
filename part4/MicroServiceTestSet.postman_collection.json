@@ -1,0 +1,71 @@
+{
+	"variables": [],
+	"info": {
+		"name": "MicroServiceTestSet",
+		"_postman_id": "d6665219-6f93-12a2-6fbb-ff1e0eabf1ad",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Publish Fake Tweet",
+			"request": {
+				"url": "192.168.99.100:31856/tweet",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"text\":\"Great, the greatest, fake,the fakest\" \r\n             , \"author\" : \"lucasjellema\"\r\n             , \"authorImageUrl\" : \"http://pbs.twimg.com/profile_images/427673149144977408/7JoCiz-5_normal.png\"\r\n             , \"createdTime\" : \"April 17, 2017 at 01:39PM\"\r\n             , \"tweetURL\" : \"http://twitter.com/SaibotAirport/status/853935915714138112\"\r\n             , \"firstLinkFromTweet\" : \"https://t.co/cBZNgqKk0U\"\r\n             }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Publish Fake Tweet (local)",
+			"request": {
+				"url": "192.168.99.100:31856/tweet",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"text\":\"Great, the greatest, fake,the fakest\" \r\n             , \"author\" : \"lucasjellema\"\r\n             , \"authorImageUrl\" : \"http://pbs.twimg.com/profile_images/427673149144977408/7JoCiz-5_normal.png\"\r\n             , \"createdTime\" : \"April 17, 2017 at 01:39PM\"\r\n             , \"tweetURL\" : \"http://twitter.com/SaibotAirport/status/853935915714138112\"\r\n             , \"firstLinkFromTweet\" : \"https://t.co/cBZNgqKk0U\"\r\n             }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "ValidateTweet",
+			"request": {
+				"url": "192.168.99.100:31139/tweet",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"text\":\"RT: Trump brexit Local Tweet  #oraclecode Tweet @StringSection @redCopper\" \r\n             , \"author\" : \"lucasjellema\"\r\n             , \"authorImageUrl\" : \"http://pbs.twimg.com/profile_images/427673149144977408/7JoCiz-5_normal.png\"\r\n             , \"createdTime\" : \"April 17, 2017 at 01:39PM\"\r\n             , \"tweetURL\" : \"http://twitter.com/SaibotAirport/status/853935915714138112\"\r\n             , \"firstLinkFromTweet\" : \"https://t.co/cBZNgqKk0U\"\r\n             }"
+				},
+				"description": "Calls to microservices"
+			},
+			"response": []
+		}
+	]
+}

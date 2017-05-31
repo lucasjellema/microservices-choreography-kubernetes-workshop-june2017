@@ -1,4 +1,4 @@
-var kafka = require('kafka-node');
+  var kafka = require('kafka-node');
 
 var kafkaHost = process.env.KAFKA_HOST || "ubuntu";
 var zookeeperPort = process.env.ZOOKEEPER_PORT || 2181;
@@ -16,7 +16,7 @@ console.log("Initialized module " + APP_NAME + "version " + APP_VERSION);
 
 function initializeKafkaProducer(attempt) {
   try {
-    console.log("Try to initialize Kafka Client and Producer, attempt " + attempt);
+    console.log("Try to initialize Kafka Client at "+ kafkaHost + ":" + zookeeperPort+" and Producer, attempt " + attempt);
     var client = new kafka.Client(kafkaHost + ":" + zookeeperPort + "/")
     console.log("created client");
     producer = new Producer(client);

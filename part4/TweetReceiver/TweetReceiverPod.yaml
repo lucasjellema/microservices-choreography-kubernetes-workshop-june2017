@@ -1,33 +1,33 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: workflow-launcher-ms
+  name: tweetreceiver-ms
   labels:
-    app: workflow-launcher-ms
+    app: tweetreceiver-ms
 spec:
   nodeName: minikube
   containers:
-  - name: microservice-workflow-launcher
+  - name: tweetreceiver
     # get latest version of image
     image: lucasjellema/node-app-runner
     env:
     - name: GIT_URL
       value: "https://github.com/lucasjellema/microservices-choreography-kubernetes-workshop-june2017"
+    - name: APP_PORT
+      value: "8101"
     - name: APP_HOME
-      value: "part4/WorkflowLauncher"
+      value: "part4/TweetReceiver"
     - name: APP_STARTUP
-      value: "WorkflowLauncher.js"
+      value: "TweetReceiver.js"
     - name: KAFKA_HOST
       value: "ubuntu"
     - name: ZOOKEEPER_PORT
       value: "2181"
     - name: KAFKA_TOPIC
       value: "workflowEvents"
-    - name: REDIS_HOST
-      value: "redis-cache"
-    - name: REDIS_PORT
-      value: "6379"
     ports:
+    # containerPort is the port exposed by the container (where nodejs express api is listening)
+    - containerPort: 8101
     lifecycle:
       postStart:
         exec:

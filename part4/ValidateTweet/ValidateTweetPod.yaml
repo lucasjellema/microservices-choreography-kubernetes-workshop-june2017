@@ -1,22 +1,24 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: workflow-launcher-ms
+  name: tweet-validator-ms
   labels:
-    app: workflow-launcher-ms
+    app: tweet-validator-ms
 spec:
   nodeName: minikube
   containers:
-  - name: microservice-workflow-launcher
+  - name: tweet-validator
     # get latest version of image
     image: lucasjellema/node-app-runner
     env:
     - name: GIT_URL
       value: "https://github.com/lucasjellema/microservices-choreography-kubernetes-workshop-june2017"
+    - name: APP_PORT
+      value: "8102"
     - name: APP_HOME
-      value: "part4/WorkflowLauncher"
+      value: "part4/ValidateTweet"
     - name: APP_STARTUP
-      value: "WorkflowLauncher.js"
+      value: "TweetValidator.js"
     - name: KAFKA_HOST
       value: "ubuntu"
     - name: ZOOKEEPER_PORT
@@ -28,6 +30,8 @@ spec:
     - name: REDIS_PORT
       value: "6379"
     ports:
+    # containerPort is the port exposed by the container (where nodejs express api is listening)
+    - containerPort: 8102
     lifecycle:
       postStart:
         exec:
