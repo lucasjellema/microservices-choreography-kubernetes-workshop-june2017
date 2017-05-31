@@ -7,7 +7,7 @@ var http = require('http'),
 var PORT = process.env.APP_PORT || 8095;
 var APP_VERSION = "0.1.2"
 var APP_NAME = "TweetReceiver"
-var workflowEventsTopic = "workflowEvents";
+var workflowEventsTopic = process.env.KAFKA_TOPIC ||"workflowEvents";
 
 var moduleName = "TweetReceiver";
 
